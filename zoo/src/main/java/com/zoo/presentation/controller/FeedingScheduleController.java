@@ -18,8 +18,7 @@ public class FeedingScheduleController {
     private final FeedingScheduleRepository feedingRepo;
     private final FeedingOrganizationService feedingService;
 
-    public FeedingScheduleController(FeedingScheduleRepository feedingRepo,
-                                     FeedingOrganizationService feedingService) {
+    public FeedingScheduleController(FeedingScheduleRepository feedingRepo, FeedingOrganizationService feedingService) {
         this.feedingRepo = feedingRepo;
         this.feedingService = feedingService;
     }

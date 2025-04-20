@@ -20,7 +20,6 @@ public class AnimalTransferService {
     }
 
     public Optional<AnimalMovedEvent> transferAnimal(UUID animalId, UUID fromEnclosureId, UUID toEnclosureId) {
-        // Найти вольеры
         Optional<Enclosure> fromOpt = enclosureRepository.findById(fromEnclosureId);
         Optional<Enclosure> toOpt = enclosureRepository.findById(toEnclosureId);
         if (fromOpt.isEmpty() || toOpt.isEmpty()) return Optional.empty();
@@ -28,7 +27,6 @@ public class AnimalTransferService {
         Enclosure from = fromOpt.get();
         Enclosure to = toOpt.get();
 
-        // Найти животное
         Animal animal = from.getAnimals().stream()
             .filter(a -> a.getId().equals(animalId))
             .findFirst()

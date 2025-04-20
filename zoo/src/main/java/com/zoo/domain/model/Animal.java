@@ -55,6 +55,10 @@ public class Animal {
         this.healthStatus = HealthStatus.HEALTHY;
     }
 
+    public void setHealthStatus(HealthStatus healthStatus) {
+        this.healthStatus = healthStatus;
+    }
+
     public UUID getId() {
         return id;
     }

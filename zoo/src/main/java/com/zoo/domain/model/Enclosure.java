@@ -44,6 +44,13 @@ public class Enclosure {
         return id;
     }
 
+    public LocalDateTime getLastCleanedTime() {
+        return lastCleanedTime;
+    }
+    
+    public double getSize() {
+        return size;
+    }
 
     public boolean isFull() {
         return animals.size() >= maxAnimals;

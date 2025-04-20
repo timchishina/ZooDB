@@ -22,5 +22,6 @@
 /Users/alenkasharipova/Zoo/zoo/src/main/java/com/zoo/application/service/FeedingOrganizationService.java
 /Users/alenkasharipova/Zoo/zoo/src/main/java/com/zoo/domain/valueobject/AnimalType.java
 /Users/alenkasharipova/Zoo/zoo/src/main/java/com/zoo/domain/valueobject/Gender.java
+/Users/alenkasharipova/Zoo/zoo/src/main/java/com/zoo/presentation/TransferRequest.java
 /Users/alenkasharipova/Zoo/zoo/src/main/java/com/zoo/AppConfig.java
 /Users/alenkasharipova/Zoo/zoo/src/main/java/com/zoo/domain/valueobject/HealthStatus.java

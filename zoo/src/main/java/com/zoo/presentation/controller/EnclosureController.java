@@ -4,6 +4,7 @@ import com.zoo.application.port.out.AnimalRepository;
 import com.zoo.application.port.out.EnclosureRepository;
 import com.zoo.domain.model.Animal;
 import com.zoo.domain.model.Enclosure;
+import com.zoo.presentation.TransferRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -56,4 +57,35 @@ public class EnclosureController {
     public List<Enclosure> listEnclosures() {
         return enclosureRepository.findAll();
     }
+
+    @PostMapping("/{id}/clean")
+    public boolean cleanEnclosure(@PathVariable UUID id) {
+        Optional<Enclosure> opt = enclosureRepository.findById(id);
+        if (opt.isPresent()) {
+            Enclosure enclosure = opt.get();
+            enclosure.clean();
+            enclosureRepository.save(enclosure);
+            return true;
+        }
+        return false;
+    }
+
+    @PostMapping("/transfer")
+    public boolean transferAnimal(@RequestBody TransferRequest request) {
+        Optional<Enclosure> from = enclosureRepository.findById(request.getFromEnclosureId());
+        Optional<Enclosure> to = enclosureRepository.findById(request.getToEnclosureId());
+        Optional<Animal> animal = animalRepository.findById(request.getAnimalId());
+
+        if (from.isPresent() && to.isPresent() && animal.isPresent()) {
+            boolean removed = from.get().removeAnimal(animal.get());
+            boolean added = to.get().addAnimal(animal.get());
+            if (removed && added) {
+                enclosureRepository.save(from.get());
+                enclosureRepository.save(to.get());
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

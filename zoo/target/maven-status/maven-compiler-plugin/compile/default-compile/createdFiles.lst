@@ -8,6 +8,7 @@ com/zoo/domain/model/Animal.class
 com/zoo/presentation/controller/FeedingScheduleController.class
 com/zoo/application/service/FeedingOrganizationService.class
 com/zoo/domain/valueobject/EnclosureType.class
+com/zoo/presentation/controller/ZooStatisticsController.class
 com/zoo/infrastructure/repository/InMemoryEnclosureRepository.class
 com/zoo/application/port/out/EnclosureRepository.class
 com/zoo/application/port/out/AnimalRepository.class
@@ -19,6 +20,8 @@ com/zoo/infrastructure/repository/InMemoryFeedingScheduleRepository.class
 com/zoo/domain/valueobject/AnimalType.class
 com/zoo/application/service/ZooStatisticsService.class
 com/zoo/domain/valueobject/Gender.class
+com/zoo/presentation/TransferRequest.class
 com/zoo/domain/event/FeedingTimeEvent.class
 com/zoo/domain/model/Enclosure.class
+com/zoo/AppConfig.class
 com/zoo/application/port/in/ManageAnimalUseCase.class
