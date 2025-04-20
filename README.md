@@ -64,7 +64,7 @@ Swagger UI: http://localhost:8080/swagger-ui.html
 
 - Зависимости направлены внутрь 
 - Интерфейсы портов позволяют легко заменять инфраструктуру
-- Чёткое разделение слоёв (`domain` ← `application` ← `infrastructure` ← `presentation`)
+- Чёткое разделение слоёв (`domain`, `application`, `infrastructure`, `presentation`)
 
 ## Тесты
 
@@ -89,3 +89,85 @@ src/
 └── test/java/com/zoo
     └── ...            # Unit-тесты
 ```
+
+## Как пользоваться веб-приложением
+
+После запуска проекта перейдите в Swagger UI:  
+[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+### 1. Добавить животное
+
+- Перейти в `animal-controller` : `POST/animals`
+- Вставить JSON:
+
+```json
+{
+  "id": "11111111-1111-1111-1111-111111111111",
+  "name": "Лев",
+  "type": "CARNIVORE",
+  "birthDate": "2017-05-01",
+  "gender": "MALE",
+  "favoriteFood": "мясо",
+  "healthStatus": "HEALTHY",
+  "hungry": true
+}
+```
+
+### 2. Добавить вольер
+
+- Перейти в `enclosure-controller` : `POST/enclosures`
+- Вставить JSON:
+
+```json
+{
+  "id": "22222222-2222-2222-2222-222222222222",
+  "type": "CARNIVORE",
+  "maxAnimals": 3,
+  "size": 100.0
+}
+```
+
+### 3. Поместить животное в вольер
+
+- Перейти в `POST/enclosures/{id}/add-animal`
+- Вставить ID вольера в путь 
+- В теле запроса передать ID животного как строку:
+
+```json
+"11111111-1111-1111-1111-111111111111"
+```
+
+### 4. Добавить расписание кормления
+
+- Перейти в `feeding-schedule-controller` : `POST/feeding-schedule`
+- Пример запроса:
+
+```json
+{
+  "animalId": "11111111-1111-1111-1111-111111111111",
+  "feedingTime": "12:30",
+  "foodType": "мясо"
+}
+```
+
+### 5. Отметить кормление как выполненное
+
+- Перейти в `POST/feeding-schedule/{id}/complete`
+- Вставить `id` из расписания
+
+### 6. Посмотреть статистику
+
+- Перейти в `GET/statistics`
+- Увидите:
+  - Общее количество животных
+  - Голодные и больные
+  - Статистика по типам
+
+---
+
+### Дополнительно:
+
+- `PATCH/animals/{id}/health` — изменить статус здоровья
+- `POST/animals/{id}/feed` — ручное кормление
+- `POST/enclosures/{id}/clean` — уборка вольера
+- `POST/enclosures/transfer` — переместить животное
