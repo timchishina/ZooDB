@@ -86,7 +86,7 @@ src/
 │   ├── infrastructure # In-memory репозитории
 │   ├── presentation   # REST контроллеры
 │   └── ZooApplication.java
-└── test/java/com/zoo
+└── test/java
     └── ...            # Unit-тесты
 ```
 
