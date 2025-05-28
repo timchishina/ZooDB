@@ -4,18 +4,37 @@ import com.zoo.domain.valueobject.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import  jakarta.persistence.*;
 
+@Entity
 public class Animal {
-    private final UUID id;
-    private final String name;
-    private final AnimalType type;
-    private final LocalDate birthDate;
-    private final Gender gender;
-    private final String favoriteFood;
+    @Id
+    private UUID id;
+
+    private String name;
+
+    @Enumerated(EnumType.STRING)
+    private AnimalType type;
+
+    private LocalDate birthDate;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    private String favoriteFood;
+
+    @Enumerated(EnumType.STRING)
     private HealthStatus healthStatus;
+
     private boolean hungry = true;
+
     private LocalDateTime lastFedTime;
 
+    @ManyToOne
+    @JoinColumn(name = "enclosure_id")
+    private Enclosure enclosure;
+
+    public Animal(){}
     public Animal(UUID id, String name, AnimalType type, LocalDate birthDate, Gender gender, String favoriteFood) {
         this.id = id;
         this.name = name;

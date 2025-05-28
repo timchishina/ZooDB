@@ -6,14 +6,23 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
+
+@Entity
 public class Enclosure {
-    private final UUID id;
-    private final EnclosureType type;
-    private final int maxAnimals;
-    private final Set<Animal> animals;
-    private final double size;
+    @Id
+    private UUID id;
+
+    @Enumerated(EnumType.STRING)
+    private EnclosureType type;
+
+    private int maxAnimals;
+    private double size;
     private LocalDateTime lastCleanedTime;
+
+    @OneToMany(mappedBy = "enclosure", cascade = CascadeType.ALL)
+    private Set<Animal> animals;
 
     public Enclosure(UUID id, EnclosureType type, int maxAnimals, double size) {
         this.id = id;
@@ -23,6 +32,7 @@ public class Enclosure {
         this.size = size;
         this.lastCleanedTime = null;
     }
+    public Enclosure(){}
 
     public boolean addAnimal(Animal animal) {
         if (animals.size() < maxAnimals && type.isCompatible(animal.getType())) {
