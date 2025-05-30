@@ -7,29 +7,11 @@ import com.zoo.application.port.out.FeedingScheduleRepository;
 import com.zoo.application.service.FeedingOrganizationService;
 import com.zoo.application.service.ManageAnimalService;
 import com.zoo.application.service.ZooStatisticsService;
-import com.zoo.infrastructure.repository.InMemoryAnimalRepository;
-import com.zoo.infrastructure.repository.InMemoryEnclosureRepository;
-import com.zoo.infrastructure.repository.InMemoryFeedingScheduleRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
-
-    @Bean
-    public AnimalRepository animalRepository() {
-        return new InMemoryAnimalRepository();
-    }
-
-    @Bean
-    public EnclosureRepository enclosureRepository() {
-        return new InMemoryEnclosureRepository();
-    }
-
-    @Bean
-    public FeedingScheduleRepository feedingScheduleRepository() {
-        return new InMemoryFeedingScheduleRepository();
-    }
 
     @Bean
     public ManageAnimalUseCase manageAnimalUseCase(AnimalRepository animalRepository) {
@@ -42,10 +24,7 @@ public class AppConfig {
     }
 
     @Bean
-    public ZooStatisticsService zooStatisticsService(
-            AnimalRepository animalRepository,
-            EnclosureRepository enclosureRepository
-    ) {
+    public ZooStatisticsService zooStatisticsService(AnimalRepository animalRepository, EnclosureRepository enclosureRepository) {
         return new ZooStatisticsService(animalRepository, enclosureRepository);
     }
 }
