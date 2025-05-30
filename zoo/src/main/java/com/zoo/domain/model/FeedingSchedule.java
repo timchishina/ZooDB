@@ -44,6 +44,10 @@ public class FeedingSchedule {
         return animal.getId();
     }
 
+    public Animal getAnimal() {
+        return animal;
+    }
+
     public LocalTime getFeedingTime() {
         return feedingTime;
     }
