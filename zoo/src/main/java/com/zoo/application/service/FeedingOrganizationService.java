@@ -14,19 +14,26 @@ public class FeedingOrganizationService {
     private final FeedingScheduleRepository feedingScheduleRepository;
     private final AnimalRepository animalRepository;
 
-    public FeedingOrganizationService(FeedingScheduleRepository feedingScheduleRepository, AnimalRepository animalRepository) {
+    public FeedingOrganizationService(FeedingScheduleRepository feedingScheduleRepository,
+                                      AnimalRepository animalRepository) {
         this.feedingScheduleRepository = feedingScheduleRepository;
         this.animalRepository = animalRepository;
     }
 
-    public void addFeeding(UUID animalId, LocalTime time, String foodType) {
+    public boolean addFeeding(UUID animalId, LocalTime time, String foodType) {
+        Optional<Animal> optAnimal = animalRepository.findById(animalId);
+        if (optAnimal.isEmpty()) return false;
+
+        Animal animal = optAnimal.get();
+
         FeedingSchedule schedule = new FeedingSchedule(
                 UUID.randomUUID(),
-                animalId,
+                animal,
                 time,
                 foodType
         );
         feedingScheduleRepository.save(schedule);
+        return true;
     }
 
     public boolean markFeedingAsCompleted(UUID scheduleId) {
@@ -37,12 +44,9 @@ public class FeedingOrganizationService {
         schedule.markAsCompleted();
         feedingScheduleRepository.save(schedule);
 
-        Optional<Animal> optAnimal = animalRepository.findById(schedule.getAnimalId());
-        if (optAnimal.isPresent()) {
-            Animal animal = optAnimal.get();
-            animal.feed(schedule.getFoodType());
-            animalRepository.save(animal);
-        }
+        Animal animal = schedule.getAnimal();
+        animal.feed(schedule.getFoodType());
+        animalRepository.save(animal);
 
         return true;
     }
