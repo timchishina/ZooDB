@@ -26,35 +26,46 @@
 
 ## Предварительная схема базы данных
 
-### Сущности:
-- **Animal**
-  - id (UUID, PK)
-  - name (VARCHAR)
-  - type (ENUM: CARNIVORE, HERBIVORE, ...)
-  - birth_date (DATE)
-  - gender (ENUM)
-  - favorite_food (VARCHAR)
-  - health_status (ENUM)
-  - hungry (BOOLEAN)
-  - last_fed_time (TIMESTAMP)
-  - enclosure_id (UUID, FK → Enclosure.id)
-    
-- **Enclosure**
-  - id (UUID, PK)
-  - type (ENUM)
-  - size (FLOAT)
-  - max_animals (INTEGER)
+## Class diagram UML
+```uml
+@startuml
+entity "Enclosure"  {
+  + id (PK) 
+  --
+  type
+  maxAnimals      
+  size            
+  lastCleanedTime 
+}
 
-- **FeedingSchedule**
-  - id (UUID, PK)
-  - animal_id (UUID, FK → Animal.id)
-  - feeding_time (TIME)
-  - food_type (VARCHAR)
-  - completed (BOOLEAN)
-    
-### Связи:
-- Enclosure 1:N Animal
-- Animal 1:N FeedingSchedule
+entity "Animal"  {
+  + id (PK)
+  --
+   name       
+   type         
+   birthDate       
+   gender      
+   favoriteFood  
+   healthStatus 
+   hungry 
+   lastFedTime
+   enclosure_id(FK)
+}
+
+entity "FeedingSchedule"  {
+  + id (PK)   
+  --
+  feedingTime 
+  foodType
+  completed   
+  animal_id (FK)            
+}
+
+
+Enclosure--|{ Animal
+Animal--|{ FeedingSchedule
+@enduml
+```
 
 ## Ограничения на данные 
 
